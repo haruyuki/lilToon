@@ -13,7 +13,7 @@ namespace lilToon
         public LocalizationAsset localizationAsset;
         private static string[] languages;
         private static string[] languageNames;
-        private static readonly Dictionary<string, GUIContent> guicontents = new();
+        private static readonly Dictionary<string, GUIContent> guicontents = new Dictionary<string, GUIContent>();
         private static string localizationFolder => AssetDatabase.GUIDToAssetPath("2feb2bcbf5b4ef043910b310c21b6ba7");
 
         internal static void Load()
@@ -28,16 +28,29 @@ namespace lilToon
 
         internal static string[] GetLanguages()
         {
-            return languages ??= Directory.GetFiles(localizationFolder, "*.po").Select(f => Path.GetFileNameWithoutExtension(f)).Where(f => !f.StartsWith("._")).ToArray();
+            if (languages == null)
+            {
+                languages = Directory.GetFiles(localizationFolder, "*.po")
+                    .Select(f => Path.GetFileNameWithoutExtension(f))
+                    .Where(f => !f.StartsWith("._"))
+                    .ToArray();
+            }
+            return languages;
         }
 
         internal static string[] GetLanguageNames()
         {
-            return languageNames ??= languages.Select(l => {
-                if(l == "zh-Hans") return "简体中文";
-                if(l == "zh-Hant") return "繁體中文";
-                return new CultureInfo(l).NativeName;
-            }).ToArray();
+            if (languageNames == null)
+            {
+                var langs = GetLanguages();
+                languageNames = langs.Select(l =>
+                {
+                    if (l == "zh-Hans") return "简体中文";
+                    if (l == "zh-Hant") return "繁體中文";
+                    return new CultureInfo(l).NativeName;
+                }).ToArray();
+            }
+            return languageNames;
         }
 
         internal static string L(string key)

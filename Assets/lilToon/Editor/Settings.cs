@@ -3,7 +3,6 @@ using UnityEditor;
 
 namespace lilToon
 {
-    [FilePath("jp.lilxyzw/liltoon.asset", FilePathAttribute.Location.PreferencesFolder)]
     internal class Settings : ScriptableSingleton<Settings>
     {
         public string language = CultureInfo.CurrentCulture.Name;

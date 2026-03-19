@@ -138,7 +138,7 @@ namespace lilToon
 
         private Material[] materials;
         private static lilToonSetting shaderSetting;
-        private static readonly lilToonVersion latestVersion = new() { version = "" };
+        private static readonly lilToonVersion latestVersion = new lilToonVersion() { version = "" };
         private static readonly Dictionary<string, MaterialProperty> copiedProperties = new Dictionary<string, MaterialProperty>();
         private static bool isCustomEditor = false;
         private static bool isMultiVariants = false;

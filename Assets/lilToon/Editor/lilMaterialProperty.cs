@@ -82,16 +82,18 @@ namespace lilToon
 #else
             get
             {
-                return p.type switch
-                {
-                    MaterialProperty.PropType.Color => ShaderPropertyType.Color,
-                    MaterialProperty.PropType.Vector => ShaderPropertyType.Vector,
-                    MaterialProperty.PropType.Float => ShaderPropertyType.Float,
-                    MaterialProperty.PropType.Range => ShaderPropertyType.Range,
-                    MaterialProperty.PropType.Texture => ShaderPropertyType.Texture,
-                    MaterialProperty.PropType.Int => ShaderPropertyType.Int,
-                    _ => ShaderPropertyType.Float,
-                };
+                if (p.type == MaterialProperty.PropType.Color)
+                    return ShaderPropertyType.Color;
+                else if (p.type == MaterialProperty.PropType.Vector)
+                    return ShaderPropertyType.Vector;
+                else if (p.type == MaterialProperty.PropType.Float)
+                    return ShaderPropertyType.Float;
+                else if (p.type == MaterialProperty.PropType.Range)
+                    return ShaderPropertyType.Range;
+                else if (p.type == MaterialProperty.PropType.Texture)
+                    return ShaderPropertyType.Texture;
+                else
+                    return ShaderPropertyType.Float;
             }
 #endif
             private set { }
